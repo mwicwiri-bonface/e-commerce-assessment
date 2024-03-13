@@ -35,7 +35,7 @@ class Product(TimeStampModel):
 
 
 class Gallery(TimeStampModel):
-    product = models.OneToOneField(Product, on_delete=models.CASCADE, null=True)
+    product = models.OneToOneField(Product, on_delete=models.CASCADE, null=True, related_name="gallery")
     image = models.ImageField(upload_to='product/images/%Y/%m/%d/', null=True, blank=True)
     publish = models.BooleanField(_('Publish'), default=False, help_text=_('Publish, allow to display'))
 
