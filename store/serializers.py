@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
+from accounts.serializers import UserSerializer
 from store.models import Category, Gallery, Product, Rating, OrderItem, Order
 
 
@@ -58,6 +59,7 @@ class OrderItemSerializer(ModelSerializer):
 
 class OrderSerializer(ModelSerializer):
     items = OrderItemSerializer(many=True)
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Order
