@@ -72,8 +72,8 @@ class OrderAdmin(ExportCsvMixin, ModelAdmin):
     inlines = [
         OrderItemInline,
     ]
-    search_fields = ['slug', "user__username", "user__email", "user__first_name", "user__last_name"]
-    list_display = ['slug', "user", "is_completed", "is_paid", 'created', 'updated']
+    search_fields = ['slug', "user__username", "user__email", "user__name"]
+    list_display = ['slug', "user", "is_completed", 'created', 'updated']
     list_display_links = ['slug', 'user']
     search_help_text = "Search by name"
     list_filter = ('updated', 'created')
