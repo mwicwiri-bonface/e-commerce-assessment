@@ -1,3 +1,4 @@
+from autoslug import AutoSlugField
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -28,6 +29,7 @@ class AbstractProfileModel(TimeStampModel):
         FEMALE = 'F', _('Female')
         OTHER = 'O', _('Other')
 
+    slug = AutoSlugField(populate_from='user.name')
     image = models.ImageField(upload_to='profiles/%Y/%m/', null=True, blank=True)
     nationality = CountryField(blank_label='select country', default="KE")
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)

@@ -2,7 +2,6 @@ import io
 from random import randint
 
 from PIL import Image
-from autoslug import AutoSlugField
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 
@@ -28,18 +27,12 @@ def generate_key(minlength=20, maxlength=20, use_lower=True, use_upper=True, use
 
 
 class TimeStampModel(models.Model):
-    slug = AutoSlugField(populate_from='slug_name')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         abstract = True
         ordering = ['-created']
-
-    @staticmethod
-    def slug_name():
-        slug = generate_key(8, 8)
-        return slug
 
 
 # function for converting images to webp
@@ -50,11 +43,6 @@ def convert_to_webp(image):
     width, height = img.size
     # Calculate the aspect ratio
     aspect_ratio = width / height
-    # Calculate the new width and height
-    # new_height = 630
-    # new_width = int(new_height * aspect_ratio)
-    # # Crop the image
-    # img = img.resize((new_width, new_height), Image.ANTIALIAS)
     new_width = 800
     new_height = int(new_width / aspect_ratio)
     # Crop the image
