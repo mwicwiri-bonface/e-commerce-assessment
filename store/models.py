@@ -10,7 +10,7 @@ class Category(TimeStampModel):
     slug = AutoSlugField(populate_from='name')
     name = models.CharField(max_length=100, unique=True)
     image = models.ImageField(upload_to="categories", blank=True)
-    publish = models.BooleanField(_('Publish'), default=False, help_text=_('Publish, allow to display'))
+    display = models.BooleanField(_('Display'), default=False, help_text=_('Display, allow to display'))
 
     def __str__(self):
         return self.name
@@ -28,7 +28,7 @@ class Product(TimeStampModel):
     quantity = models.IntegerField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    publish = models.BooleanField(_('Publish'), default=False, help_text=_('Publish, allow to display'))
+    display = models.BooleanField(_('Display'), default=False, help_text=_('Display, allow to display'))
 
     def __str__(self):
         return self.name
@@ -37,7 +37,7 @@ class Product(TimeStampModel):
 class Gallery(TimeStampModel):
     product = models.OneToOneField(Product, on_delete=models.CASCADE, null=True, related_name="gallery")
     image = models.ImageField(upload_to='product/images/%Y/%m/%d/', null=True, blank=True)
-    publish = models.BooleanField(_('Publish'), default=False, help_text=_('Publish, allow to display'))
+    display = models.BooleanField(_('Display'), default=False, help_text=_('Display, allow to display'))
 
     def __str__(self):
         return self.product.name
