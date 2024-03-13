@@ -70,10 +70,7 @@ class Rating(TimeStampModel):
 class Order(TimeStampModel):
     slug = AutoSlugField(populate_from='slug_name')
     user = models.ForeignKey(to="accounts.User", on_delete=models.CASCADE)
-    is_paid = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
-    is_delivered = models.BooleanField(default=False)
-    assigned = models.BooleanField(default=False)
 
     @staticmethod
     def slug_name():

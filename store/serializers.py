@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from store.models import Category, Gallery, Product, Rating
+from store.models import Category, Gallery, Product, Rating, OrderItem, Order
 
 
 class CategorySerializer(ModelSerializer):
@@ -47,4 +47,18 @@ class ProductSerializer(ModelSerializer):
 class RatingSerializer(ModelSerializer):
     class Meta:
         model = Rating
-        fields = ['id', 'image', 'publish', 'created', 'updated']
+        fields = ['slug', 'product', 'customer', 'comment', 'rating', 'created', 'updated']
+
+
+class OrderItemSerializer(ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = ['id', 'product', 'order', 'quantity', 'is_rated', 'created', 'updated']
+
+
+class OrderSerializer(ModelSerializer):
+    items = OrderItemSerializer(many=True)
+
+    class Meta:
+        model = Order
+        fields = ['slug', 'user', 'items', 'is_completed', 'created', 'updated']
