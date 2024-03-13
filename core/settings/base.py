@@ -34,6 +34,7 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'drf_yasg',
     'djmoney',
+    'djoser',
 ]
 
 CUSTOM_APPS = [
