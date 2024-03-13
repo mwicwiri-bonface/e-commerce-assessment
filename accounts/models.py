@@ -39,5 +39,16 @@ class AbstractProfileModel(TimeStampModel):
             self.image = convert_to_webp(self.image)
         super(AbstractProfileModel, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.user.name
+
     class Meta:
         abstract = True
+
+
+class Customer(AbstractProfileModel):
+    pass
+
+    class Meta:
+        verbose_name = 'Customer'
+        verbose_name_plural = 'Customers'
