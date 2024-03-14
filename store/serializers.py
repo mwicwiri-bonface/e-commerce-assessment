@@ -1,4 +1,5 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer, Serializer
 
 from accounts.serializers import UserSerializer
 from store.models import Category, Gallery, Product, Rating, OrderItem, Order
@@ -64,3 +65,8 @@ class OrderSerializer(ModelSerializer):
     class Meta:
         model = Order
         fields = ['slug', 'user', 'items', 'is_completed', 'created', 'updated']
+
+
+class PlaceOrderSerializer(Serializer):
+    order_id = serializers.IntegerField(required=True)
+
