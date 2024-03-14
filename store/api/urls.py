@@ -1,9 +1,16 @@
 from django.urls import path
-from rest_framework.generics import ListCreateAPIView
 
-from store.api.views import CategoryRetrieveUpdateDestroyAPIView
+from store.api.views import CategoryRetrieveUpdateDestroyAPIView, ProductListAPIView, ProductCreateAPIView, \
+    CategoryRetrieveAPIView, ProductRetrieveAPIView, ProductRetrieveUpdateDestroyAPIView, CategoryCreateAPIView, \
+    CategoryListAPIView
 
 urlpatterns = [
-    path('categories/', ListCreateAPIView.as_view()),
+    path('add-category/', CategoryCreateAPIView.as_view()),
+    path('categories/', CategoryListAPIView.as_view()),
     path('categories/<str:slug>/', CategoryRetrieveUpdateDestroyAPIView.as_view()),
+    path('category-detail/<str:slug>/', CategoryRetrieveAPIView.as_view()),
+    path('products/', ProductListAPIView.as_view()),
+    path('add-product/', ProductCreateAPIView.as_view()),
+    path('products/<str:slug>/', ProductRetrieveUpdateDestroyAPIView.as_view()),
+    path('product-detail/<str:slug>/', ProductRetrieveAPIView.as_view()),
 ]
