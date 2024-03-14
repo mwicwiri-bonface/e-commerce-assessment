@@ -29,6 +29,7 @@ class UserSerializer(CountryFieldMixin, ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'profile_info']
+        ref_name = 'AccountsUser'
 
     @staticmethod
     def get_profile_info(obj):

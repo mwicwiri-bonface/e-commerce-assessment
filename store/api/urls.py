@@ -2,7 +2,7 @@ from django.urls import path
 
 from store.api.views import CategoryRetrieveUpdateDestroyAPIView, ProductListAPIView, ProductCreateAPIView, \
     CategoryRetrieveAPIView, ProductRetrieveAPIView, ProductRetrieveUpdateDestroyAPIView, CategoryCreateAPIView, \
-    CategoryListAPIView, OrderListCreateAPIView, PlaceOrderAPIView
+    CategoryListAPIView, PlaceOrderAPIView, OrderListCreateAPIView
 
 urlpatterns = [
     path('add-category/', CategoryCreateAPIView.as_view()),
