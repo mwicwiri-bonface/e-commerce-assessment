@@ -1,7 +1,9 @@
 from django.urls import path
+from rest_framework.generics import ListCreateAPIView
 
-from store.api.views import CategoryList
+from store.api.views import CategoryRetrieveUpdateDestroyAPIView
 
 urlpatterns = [
-    path('categories/', CategoryList.as_view(), name='category-list')
+    path('categories/', ListCreateAPIView.as_view()),
+    path('categories/<str:slug>/', CategoryRetrieveUpdateDestroyAPIView.as_view()),
 ]
