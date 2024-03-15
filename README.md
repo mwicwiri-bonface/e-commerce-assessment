@@ -1,6 +1,6 @@
-# E-Commerce Website
+# E-Commerce Backend
 
-This is an e-commerce website built using Django Rest Framework (DRF) with JWT authentication os
+This is an e-commerce backend built using Django Rest Framework (DRF) with JWT authentication os
 used in development is fedora. 
 
 ## Technologies Used
