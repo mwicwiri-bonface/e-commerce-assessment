@@ -1,7 +1,7 @@
 from datetime import timedelta
 from pathlib import Path
 from decouple import config  # noqa
-
+from corsheaders.defaults import default_headers
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -32,6 +32,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    "rest_framework_api_key",
     'phonenumber_field',
     'django_countries',
     'corsheaders',
@@ -142,6 +143,7 @@ AUTH_USER_MODEL = 'accounts.User'
 # REST FRAMEWORK CONFIGURATION
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
+        "rest_framework_api_key.permissions.HasAPIKey",
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -208,3 +210,11 @@ SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
     "exclude_namespaces": ["internal_apis"],
 }
+
+API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
+
+CORS_ALLOW_HEADERS = [
+    *default_headers,
+    API_KEY_CUSTOM_HEADER,
+    'X-Api-Key',
+]

@@ -14,6 +14,7 @@ django-money==3.4.1
 django-phonenumber-field==7.3.0
 django-templated-mail==1.1.1
 djangorestframework==3.14.0
+djangorestframework-api-key==3.0.0
 djangorestframework-simplejwt==5.3.1
 djoser==2.2.2
 drf-yasg==1.21.7
