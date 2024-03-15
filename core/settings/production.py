@@ -26,3 +26,7 @@ else:
             'PORT': config('POSTGRES_DB_PORT'),
         }
     }
+
+env_allowed_hosts = config('ALLOWED_HOSTS')
+if env_allowed_hosts:
+    ALLOWED_HOSTS = env_allowed_hosts.split(',')
