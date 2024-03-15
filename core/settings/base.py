@@ -208,11 +208,3 @@ SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
     "exclude_namespaces": ["internal_apis"],
 }
-
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
-    "http://localhost:3000",
-    "https://www.habot.io",
-    "http://www.habot.io",
-]

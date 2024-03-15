@@ -59,9 +59,10 @@ class ProductListAPIView(ListAPIView):
         return get_product_list()
 
 
-class ProductRetrieveAPIView(RetrieveUpdateDestroyAPIView):
+class ProductRetrieveAPIView(RetrieveAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+    lookup_field = "slug"
 
     def get_queryset(self):
         return get_product_list()
