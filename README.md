@@ -108,6 +108,7 @@ For deployment to production:
 3. Configure your production server (e.g., Gunicorn, Nginx).
 4. Set up environment variables (e.g., `SECRET_KEY`, `POSTGRES_DB_NAME`, `POSTGRES_DB_USER`, `POSTGRES_DB_PASSWORD`, `POSTGRES_DB_HOST`, `POSTGRES_DB_PORT`).
 5. Deploy your application to your chosen hosting provider (e.g., Heroku, AWS, DigitalOcean).
+6. To use the end points you'll need to get an api key from admin dashboard
 
 ## Contributors
 
