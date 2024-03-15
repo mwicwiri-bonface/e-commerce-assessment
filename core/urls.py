@@ -13,7 +13,7 @@ schema_view = get_schema_view(
         description="API endpoints for Ecommerce. Find all information related to the routes under this document."
                     "\n\nThe `swagger-ui` view can be found [here](/)."
                     "\n\nThe `ReDoc` view can be found [here](/redoc/). ",
-        terms_of_service="/docs/",
+        terms_of_service="/",
         contact=openapi.Contact(email="mwicwiribonface21@gmail.com"),
         license=openapi.License(name="Name License"),
     ),
@@ -29,7 +29,7 @@ urlpatterns = [
     path('api/v1/accounts/', include('accounts.api.urls')),
 
     # SWAGGER UI patterns
-    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 if settings.DEBUG:
