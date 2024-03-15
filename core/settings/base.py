@@ -1,5 +1,7 @@
+from datetime import timedelta
 from pathlib import Path
 from decouple import config  # noqa
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -29,6 +31,9 @@ DEFAULT_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    "rest_framework_api_key",
     'phonenumber_field',
     'django_countries',
     'corsheaders',
@@ -136,18 +141,80 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # model used for user authentication
 AUTH_USER_MODEL = 'accounts.User'
 
-# django rest configurations
+# REST FRAMEWORK CONFIGURATION
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ]
+        "rest_framework_api_key.permissions.HasAPIKey",
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
-    "https://sub.example.com",
-    "http://localhost:8080",
-    "http://127.0.0.1:9000",
+DJOSER = {
+    # 'ACTIVATION_URL': '/accounts/verify-otp-token/',
+    # 'EMAIL': {
+    #     'activation': 'accounts.email.ActivationEmail',
+    #     'password_reset': 'accounts.email.CustomPasswordResetEmail',
+    # },
+    'LOGIN_FIELD': 'email',
+    'LOGOUT_ON_PASSWORD_CHANGE': False,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'reset-password/{uid}/{token}',
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': False,
+    'SEND_ACTIVATION_EMAIL': False,
+    'SEND_CONFIRMATION_EMAIL': False,
+    'SET_USERNAME_RETYPE': False,
+    'SET_PASSWORD_RETYPE': True,
+    # 'SERIALIZERS': {
+    #     'user_create': 'accounts.serializers.UserCreateSerializer',
+    #     'user': 'accounts.serializers.UserDetailsSerializer',
+    #     'current_user': 'accounts.serializers.UserDetailsSerializer',
+    #     'user_delete': 'accounts.serializers.UserCreateSerializer',
+    # },
+    'TOKEN_MODEL': None,
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION': False,
+    'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_SHOW_EMAIL_NOT_FOUND': False,
+}
+
+# SIMPLE JWT CONFIGURATION
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=900),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=100),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+    'AUTH_HEADER_TYPES': ('Bearer', 'JWT'),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'JTI_CLAIM': 'jti',
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=15),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    "exclude_namespaces": ["internal_apis"],
+}
+
+API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
+
+CORS_ALLOW_HEADERS = [
+    *default_headers,
+    API_KEY_CUSTOM_HEADER,
+    'X-Api-Key',
 ]

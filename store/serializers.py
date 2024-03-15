@@ -1,4 +1,5 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer, Serializer
 
 from accounts.serializers import UserSerializer
 from store.models import Category, Gallery, Product, Rating, OrderItem, Order
@@ -7,13 +8,13 @@ from store.models import Category, Gallery, Product, Rating, OrderItem, Order
 class CategorySerializer(ModelSerializer):
     class Meta:
         model = Category
-        fields = ['slug', 'name', 'image', 'publish', 'created', 'updated']
+        fields = ['slug', 'name', 'image', 'display', 'created', 'updated']
 
 
 class GallerySerializer(ModelSerializer):
     class Meta:
         model = Gallery
-        fields = ['id', 'image', 'publish', 'created', 'updated']
+        fields = ['id', 'image', 'display', 'created', 'updated']
 
 
 class ProductSerializer(ModelSerializer):
@@ -21,8 +22,8 @@ class ProductSerializer(ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'image', 'publish', 'gallery', 'created', 'updated']
-        read_only_fields = ['id', 'created', 'updated', 'publish']
+        fields = ['id', 'slug', 'name', 'price', 'quantity', 'description', 'image', 'display', 'gallery', 'created', 'updated']
+        read_only_fields = ['id', 'created', 'updated', 'display']
 
     def create(self, validated_data):
         gallery = validated_data.pop('gallery', [])
@@ -64,3 +65,8 @@ class OrderSerializer(ModelSerializer):
     class Meta:
         model = Order
         fields = ['slug', 'user', 'items', 'is_completed', 'created', 'updated']
+
+
+class PlaceOrderSerializer(Serializer):
+    order_id = serializers.IntegerField(required=True)
+
