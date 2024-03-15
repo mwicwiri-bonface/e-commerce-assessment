@@ -2,9 +2,10 @@ from django.db import transaction
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, ListAPIView, \
     RetrieveAPIView, get_object_or_404
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import HasAPIKey, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_api_key.permissions import HasAPIKey
 
 from store.models import Order
 from store.selectors import get_category_list, get_product_list, get_order_list
@@ -13,7 +14,7 @@ from store.serializers import CategorySerializer, ProductSerializer, OrderSerial
 
 class CategoryCreateAPIView(CreateAPIView):
     serializer_class = CategorySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [HasAPIKey, IsAuthenticated]
 
     def get_queryset(self):
         return get_category_list()
@@ -21,7 +22,7 @@ class CategoryCreateAPIView(CreateAPIView):
 
 class CategoryListAPIView(ListAPIView):
     serializer_class = CategorySerializer
-    permission_classes = [AllowAny]
+    permission_classes = [HasAPIKey]
 
     def get_queryset(self):
         return get_category_list()
@@ -29,7 +30,7 @@ class CategoryListAPIView(ListAPIView):
 
 class CategoryRetrieveAPIView(RetrieveAPIView):
     serializer_class = CategorySerializer
-    permission_classes = [AllowAny]
+    permission_classes = [HasAPIKey]
 
     def get_queryset(self):
         return get_category_list()
@@ -37,7 +38,7 @@ class CategoryRetrieveAPIView(RetrieveAPIView):
 
 class CategoryRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [HasAPIKey, IsAuthenticated]
 
     def get_queryset(self):
         return get_category_list()
@@ -45,7 +46,7 @@ class CategoryRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 class ProductCreateAPIView(CreateAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [HasAPIKey, IsAuthenticated]
 
     def get_queryset(self):
         return get_product_list()
@@ -53,7 +54,7 @@ class ProductCreateAPIView(CreateAPIView):
 
 class ProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [HasAPIKey]
 
     def get_queryset(self):
         return get_product_list()
@@ -61,7 +62,7 @@ class ProductListAPIView(ListAPIView):
 
 class ProductRetrieveAPIView(RetrieveAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [HasAPIKey]
     lookup_field = "slug"
 
     def get_queryset(self):
@@ -70,7 +71,7 @@ class ProductRetrieveAPIView(RetrieveAPIView):
 
 class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [HasAPIKey, IsAuthenticated]
 
     def get_queryset(self):
         return get_product_list()
@@ -78,7 +79,7 @@ class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 class OrderListCreateAPIView(ListCreateAPIView):
     serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [HasAPIKey, IsAuthenticated]
 
     def get_queryset(self):
         return get_order_list(user_id=self.request.user.id)
@@ -88,7 +89,7 @@ class OrderListCreateAPIView(ListCreateAPIView):
 
 
 class PlaceOrderAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [HasAPIKey, IsAuthenticated]
     serializer_class = PlaceOrderSerializer
 
     def get_queryset(self):
