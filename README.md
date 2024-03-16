@@ -89,7 +89,6 @@ For deployment to production:
       ```dotenv
       DEBUG=False
       SECRET_KEY=your-secret-key
-
       POSTGRES_DB_NAME=db_name
       POSTGRES_DB_USER=postgres
       POSTGRES_DB_PASSWORD=password
@@ -109,7 +108,7 @@ For deployment to production:
 4. Set up environment variables (e.g., `SECRET_KEY`, `POSTGRES_DB_NAME`, `POSTGRES_DB_USER`, `POSTGRES_DB_PASSWORD`, `POSTGRES_DB_HOST`, `POSTGRES_DB_PORT`).
 5. Deploy your application to your chosen hosting provider (e.g., Heroku, AWS, DigitalOcean).
 6. To use the end points you'll need to get an api key from admin dashboard
-
+7. To get API key for Hosted endpoints [https://ecomapis.pythonanywhere.com/admin/rest_framework_api_key/apikey/], Username: admin, Password: Leo@2024$
 ## Contributors
 
 - [Bonface Mwicwiri](https://github.com/mwicwiri-bonface)
