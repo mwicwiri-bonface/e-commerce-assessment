@@ -145,11 +145,6 @@ REST_FRAMEWORK = {
 }
 
 DJOSER = {
-    # 'ACTIVATION_URL': '/accounts/verify-otp-token/',
-    # 'EMAIL': {
-    #     'activation': 'accounts.email.ActivationEmail',
-    #     'password_reset': 'accounts.email.CustomPasswordResetEmail',
-    # },
     'LOGIN_FIELD': 'email',
     'LOGOUT_ON_PASSWORD_CHANGE': False,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
@@ -159,12 +154,6 @@ DJOSER = {
     'SEND_CONFIRMATION_EMAIL': False,
     'SET_USERNAME_RETYPE': False,
     'SET_PASSWORD_RETYPE': True,
-    # 'SERIALIZERS': {
-    #     'user_create': 'accounts.serializers.UserCreateSerializer',
-    #     'user': 'accounts.serializers.UserDetailsSerializer',
-    #     'current_user': 'accounts.serializers.UserDetailsSerializer',
-    #     'user_delete': 'accounts.serializers.UserCreateSerializer',
-    # },
     'TOKEN_MODEL': None,
     'USER_CREATE_PASSWORD_RETYPE': True,
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': False,
@@ -198,6 +187,7 @@ SIMPLE_JWT = {
 
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
+    'SECURITY_DEFINITIONS': None,
     "exclude_namespaces": ["internal_apis"],
 }
 
